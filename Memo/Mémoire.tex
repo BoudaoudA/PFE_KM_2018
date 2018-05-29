@@ -1,0 +1,153 @@
+ 
+ 
+\documentclass[french]{spimufcphdthesis}
+ 
+
+\usepackage[utf8]{inputenc}
+
+\declarethesis[Sous-titre]{Combinaison de SysML et Model Checker pour la Simulation et la Vérification Formelle}{14 Mars 2018}{Besan\c{c}on}{XXX}
+ 
+
+\addauthor[karimboudaoude@gmail.com]{Karim}{Boudaoud}
+
+\addjury{Incroyable}{Hulk}{Pr\'esident}{Professeur à l'Université de Gotham City}
+ 
+
+\thesisabstract[french]{SysML est un langage de modélisation des systèmes rapidement émergeant comme une norme de facto utilisée pour les spécifications logicielles, les diagrammes de séquence UML fournissent une technique visuelle pour modéliser et dépeindre les comportements logiciels. Cependant, les diagrammes de séquence ne peuvent pas automatiquement analyser et vérifier les comportements logiciels dû au manque de sémantique stricte. Pour assurer la fiabilité du logiciel systèmes, une description du comportement et une approche de vérification formelle est proposé dans ce projet, qui utilise le diagramme de séquence SYSML et un modèle d'automate.
+ 
+Premièrement, une relation complète est établie entre le diagramme de séquence et le réseau d'automates temporisés à partir de certaines règles de transformation.
+
+Ensuite, suivant la base des règles prédéfinies, la transformation du modèle sera établie.
+
+La vérification formelle peut être ensuite effectué pour vérifier les propriétés du domaine basées sur le langage TCTL comme étant une logique expressive non ambiguë avec un vérificateur de modèles automatisés (UPPAAL).
+
+Notre proposition comble le fossé entre la modélisation visuelle et la modélisation formelle logiciel, ainsi qu’avancer l’étape de vérification le plus tôt possible dans le cycle de développement des systèmes hétérogène.
+
+Notre approche a été évaluée sur un système de simulation d’ATM. L’étude de cas montre que cette approche proposée est efficace et efficiente dans le comportement, description et vérification formelle du logiciel.
+}
+ 
+
+\thesiskeywords[french]{SysML, Diagramme de Séquence , V\'erification Formelle , Automate Temporis\'e ,Modèle de transformation, UPPAAL}
+
+\resetlaboratories
+
+
+\addlaboratory{Laboratoire DISC}
+
+
+\declareupmtheorem{mytheorem}{My Theorem}{List of my Theorems}
+
+
+\begin{document}
+ 
+
+\chapter*{Remerciements}
+Nous ne pouvons pas laisser passer l’occasion de la présentation de ce rapport sans exprimer nos remerciements et notre gratitude à tous ceux qui ont bien voulu nous apporter l’assistance nécessaire au bon déroulement de ce projet.
+Nous adressons nos sincères remerciements à notre encadrant, Messabihi Mohammed, pour l’attention et l’intérêt qu’il a porté à notre travail et pour ses multiples conseils et orientations tout au long de l'élaboration de ce projet.
+Nous tenons aussi à témoigner notre reconnaissance envers tous nos collègues de travail pour toutes les discussions concernant ce sujet.
+
+\tableofcontents
+
+
+\mainmatter
+ 
+\part{Contexte et Problématiques}
+\chapter{Introduction}
+Les systèmes critiques temps réel deviennent de plus en plus complexes et exigeants un niveau de sûreté et de fiabilité très élevé. Cela nécessite l'utilisation des méthodes de spécification et de vérification dans la phase de conception pendant le cycle de développement de ces systèmes afin de réduire la notion d'erreur avant même de commencer l'implémentation ce qui permet le développement d'un système fiable, de réduire les coûts et de gagner du temps.
+ 
+ 
+\section{Contexte}
+
+Ce sujet est situé dans un contexte de recherche et développement pour la modélisation et la vérification
+de  systèmes  hétérogènes  (par  exemple  des  systèmes  répartis  sur  des  plateformes  diverses  ou  des
+logiciels  embarqués  sur  divers  matériels).   La  composition  souple  de  divers  composants  est  une
+voie pour modéliser et construire de tels systèmes.  Cependant afin de les analyser et garantir leur
+correction vis à vis des exigences, il faut formaliser les propriétés locales ou globales et les vérifier.
+
+\section{Problématique}
+
+\section{Objectifs}
+Les objectifs de cette thèses sont :
+\begin{itemize}
+\item Proposer un profile SysML permettant de mieux décrire les exigences afin de les intégrer dans le processus de vérification. Ce profile inclura essentiellement la description formelle des exigences.
+\item Exploiter les exigences étendues de ce profile pour vérifier localement  chaque composant s'il satisfait bien ses propriétés (souvent comportementales). On peut se baser sur l'un des diagramme comportementaux de SysML (par exemple, diagramme de séquence ou état transition, \emph{etc.}). Des outils de \textit{model checking} peuvent être utilisés pour vérifier de telles propriétés.
+\end{itemize}
+
+\section{Organisation du mémoire}
+
+
+\part{Chapitre 1}
+
+\chapter{État de l'art}
+
+
+
+\section{Langages de modélisation}
+1.5 Systems Engineering Modeling Languages
+
+Les langages de modélisation sont couramment utilisés pour spécifier, visualiser, stocker, documenter, et échanger des modèles de conception. Ils sont spécifiques au domaine et contiennent toutes les informations syntaxiques, sémantiques et de présentation concernant une application donnée dans un domaine. Différents langages de modélisation ont été définis par des organisations et des entreprises afin de cibler différents domaines tels que le développement web (WebML), télécommunications (TeD), matériel (HDL), logiciels, et plus récemment, les systèmes (UML). D'autres langages tels que IDEF ont été conçus pour un large éventail d'utilisations, y compris la modélisation fonctionnelle, la modélisation des données et la modélisation de résaux.
+Bien que l’ingénierie des systèmes existe depuis plus de cinq décennies, jusqu'à récemment, il n'y avait pas de langage de modélisation dédié à cette discipline. Traditionnellement, les ingénieurs systèmes ont beaucoup travaillé sur la documentation pour exprimer les exigences système et, en l'absence d'une langue standard spécifique, ont utilisé différents langages de modélisation pour exprimer une solution de conception complète.
+Cette diversité de techniques et d'approches a limité le travail coopératif et l'échange d’information. Parmi les langages de modélisation existants qui ont été utilisés par les systèmes ingénieurs, on peut citer HDL, IDEF et EFFBD. Afin de fournir une solution à ce problème, OMG et INCOSE, avec un certain nombre d'experts dans le domaine de l’ingénierie système, ont collaboré pour la construction d'un langage de modélisation standard pour IE.
+UML, étant le langage de modélisation par excellence pour l'ingénierie logicielle, était le langage de choix destiné à la personnalisation à l'égard des besoins des ingénieurs systèmes. Cependant, UML 1.x s'est révélée inadéquate pour une telle utilisation et donc la révision en évolution de UML (c'est-à-dire, UML 2.0) a été publié, avec des fonctionnalités spéciales pour les ingénieurs systèmes. En avril 2006, une proposition pour un langage de modélisation standard pour la modélisation des systèmes, à savoir SysML, a été soumis à l'OMG, avec l'objectif d'aboutir à un processus de normalisation final.
+
+\subsection{UML}
+1.5.1 UML 2.x: Unified Modeling Language
+
+Le langage de modélisation unifié (UML) est une modélisation visuelle à usage général langue dont la maintenance a été assumée par OMG depuis 1997. C'est le résultat de la fusion de trois notations majeures : la méthodologie de Grady Booch pour décrire un ensemble d'objets et leurs relations, la technique de modélisation des objets de James Rumbaugh (OMT), et la méthodologie de cas d'utilisation d'Ivar Jacobson.
+Bien que UML ait été conçu à l'origine pour spécifier, visualiser et documenter systèmes logiciels, il peut également être appliqué à divers autres domaines tels que l’organisation des sociétés et processus d'affaires. UML a de nombreux avantages, il est largement accepté par de nombreux leaders de l'industrie, est non exclusif et extensible et est également commercialement soutenu par de nombreux outils et manuels. La norme UML a été révisé plusieurs fois et de nombreuses versions ont été publiées jusqu’à la version 2.5.1 publiée en 2018. 
+
+\subsubsection{Metamodel UML}
+1.5.1 UML 2.x: Unified Modeling Language
+
+L'infrastructure définit les concepts de bas niveau dans UML et représente un métamodèle. La superstructure UML concerne la définition des éléments UML. Le document de la superstructure contient la description de la syntaxe UML, y compris les spécifications des diagrammes. Il définit 13 diagrammes qui peuvent être classés en deux catégories principales : diagrammes structurels et diagrammes comportementaux. Enfin, la spécification OCL définit une langue pour écrire des contraintes et des expressions dans les modèles UML.
+\subsubsection{Architecture UML}
+\subsection{SysML}
+1.5.2 SysML: Systems Modeling Language
+\subsubsection{Architecture SysML}
+\subsubsection{Avantages de SysML}
+\subsection{Automates}
+
+
+
+
+
+\section{Ingénierie dirigée par les modèles - IDM}
+\subsection{Définitions}
+\subsection{Transformation des modèles}
+\subsubsection{Transformation Model to Model - M2MT}
+\subsubsection{Transformation Model to Text  - M2TT}
+
+\section{Modélisation des systèmes complexes}
+Dans cette partie, nous présentons des défis pour l'intégration et l'évaluation de la différence entre les techniques de spécification semi-formelles et formelles. En outre, nous présentons plusieurs formalismes de spécifications, des similitudes et des différences, ainsi que des possibilités de combiner de telles techniques. Le premier aspect critique du développement de logiciels basés sur les composants est la spécification qui décrit la fonctionnalité et le comportement du composant.
+\subsection{Langage Semi-Formel}
+\subsection{Langage Formel}
+
+\section{Vérification et Validation}
+\subsection{Test et Simulation (Validation)}
+La  vérification  par  simulation est  la  méthode traditionnelle  de  vérification.  Comme  son  nom l’indique,   elle    essaye   de tester   le   bon fonctionnement    d’un    composant    en    le soumettant   à  un   système   réel   d’évaluation. Clairement  le  succès    de  cette  technique  compte beaucoup    sur  la  détermination  et  l’attachement de  l’individu  qui  fait  le  contrôle.  Aussi  chaque fois  qu'un  changement  est  fait  au  code  HDL (Hardware Description Language) on a besoin du même   effort   pour   vérifier   la   simulation résultante.  Mais,  bien  que  la  technique  standard de  vérification  soit  le  test  direct,    cette  méthode permet d’afficher la présence d’erreurs mais n’est pas  capable  de  prouver  avec  certitude  leur absence.  Cette  conclusion  découle  de  plusieurs arguments dont figure principalement l’impossibilité   d’énumérer   toutes   les   entrées possibles.  
+
+\subsection{Méthodes Formelles (Vérification)}
+La vérification formelle    est un processus [3] qui   permet   de   prouver   qu’un   système   se 
+Comporterait    en    parfait    accord    avec    sa spécification.   Cela   revient   à   utiliser   des approches mathématiques qui permettent de montrer   que   l’implémentation   satisfait   la  
+Spécification. Dans ce cas une considération de tous les cas possibles est implicite. Ces dernières années, les méthodes formelles ne sont plus uniquement des thèmes de recherche, mais plutôt un concurrent potentiel, si ce n’est pas une solution de remplacement, de la vérification par simulation. Ces points de vue partent d’une correcte énumération des caractéristiques des méthodes formelles. Les avantages des méthodes de vérification formelle comparées à la vérification par simulation sont nombreux. En effet, ces méthodes considèrent toutes les entrées possibles au système, vérifient la validité des propriétés du système mathématiquement, ne nécessitent pas une spécification des sorties du système prévue de plus elles permettent, pour certains outils, d’identifier les traces des erreurs s’il y a lieu. La vérification formelle possède, elle 
+Aussi, certains inconvénients [3]. En effet, elle demande un effort supplémentaire pour parvenir à une description complète et simple du système à vérifier. C’est qu’il est nécessaire de définir une spécification, d’une part, tenant en considération tous les détails du système, et d’autre part, assez simple à manipuler dans la phase de vérification. D’autre part c’est difficile de faire un raffinement sans perte des propriétés du système. 
+
+\subsubsection{Model Cheking}
+
+
+\subsubsection{Theorem Proving}
+
+
+\part{Chapitre 2}
+\chapter{Approche}
+Vers une Vérification Formelle des Modèles SYSML
+
+\part{Chapitre 3}
+\chapter{Séquence Formel : Génération d'automates de vérification}
+\subsection{De SYSML vers UPPAAL}
+\subsection{Algorithmes développer}
+\subsection{Étude de cas}
+
+\chapter{Conclusion et Futur Travaux}
+
+\end{document}
